@@ -2,6 +2,7 @@ from rl_mdp.util import create_mdp
 from rl_mdp.util import create_policy_1
 from rl_mdp.util import create_policy_2
 from rl_mdp.model_free_prediction.monte_carlo_evaluator import MCEvaluator
+from rl_mdp.model_free_prediction.td_evaluator import TDEvaluator
 
 def main() -> None:
     """
@@ -11,9 +12,13 @@ def main() -> None:
     policy1 = create_policy_1()
     policy2 = create_policy_2()
 
-    evaluator = MCEvaluator(mdp)
+    #7a
+    # evaluator = MCEvaluator(mdp)
 
-    n_episodes = 1000
+    #7b
+    evaluator = TDEvaluator(mdp, alpha=0.1)
+
+    n_episodes = 10
     evaluation1 = evaluator.evaluate(policy1, n_episodes)
     evaluation2 = evaluator.evaluate(policy2, n_episodes)
     print(evaluation1)
