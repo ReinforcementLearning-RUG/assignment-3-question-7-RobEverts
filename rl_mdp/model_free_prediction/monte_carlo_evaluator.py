@@ -57,4 +57,12 @@ class MCEvaluator(AbstractEvaluator):
 
         :param episode: A list of (state, action, reward) tuples.
         """
-        pass
+        expected_return = 0
+        previous_states = []
+
+        for step in episode:
+            (state, _, reward) = step
+            expected_return = self.env.discount_factor * expected_return + reward
+            if state not in previous_states:
+                self.returns[state].append(expected_return)
+                self.value_fun[state] = sum(self.returns[state]) / len(self.returns[state])
